@@ -58,14 +58,16 @@ const addExpense = async (request, response) => {
  * @route /api/transaction/paging/page=10
  */
 const pagination = async (request, response) => {
+  console.log(request.query.page);
+  
   const page = parseInt(request.query.page) || 1;
   // const limit = parseInt(req.query.limit) || 4;
-  const limit = 4;
+  const limit = 2;
   const skip = (page - 1) * limit;
 
   const results = await Transaction.find().skip(skip).limit(limit);
 
-  return response.status(500).json({
+  return response.status(200).json({
     data: results,
   });
 };
