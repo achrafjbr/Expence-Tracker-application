@@ -12,7 +12,7 @@ const totalIncomes = async (_, response) => {
       { $match: { type: "income" } },
       {
         $group: {
-          _id: "$type",
+          _id: { $month: "$date" },
           total: { $sum: "$amount" },
         },
       },
@@ -39,7 +39,7 @@ const totalExpenses = async (_, response) => {
       { $match: { type: "expense" } },
       {
         $group: {
-          _id: "$type",
+          _id: { $month: "$date" },
           total: { $sum: "$amount" },
         },
       },
@@ -93,7 +93,7 @@ const totalByCategorie = async (_, response) => {
  * @desc getting Total targeted month.
  * @method GET
  * @access public
- * @route /api/statistics/totalCategory
+ * @route /api/statistics/montly-total
  */
 const totalOfMonth = async (request, response) => {
   const {
@@ -135,7 +135,7 @@ const totalOfMonth = async (request, response) => {
  * @desc getting total by each month
  * @method GET
  * @access public
- * @route /api/statistics/totalCategory
+ * @route /api/statistics/total-every-month
  */
 const totalByMonth = async (request, response) => {
   try {
