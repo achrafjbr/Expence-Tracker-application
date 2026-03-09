@@ -10,10 +10,10 @@ connectDb();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/transactions", transactionRoute);
-app.use("/api/category", categoryRoute);
-app.use("/api/statistics", statisticRoute);
-app.use("/api/budget", budgetRoute);
+app.use("/api/transactions", transactionRoute); // Done
+app.use("/api/category", categoryRoute); // Done
+app.use("/api/statistics", statisticRoute); // Done
+app.use("/api/budget", budgetRoute); //
 
 // Server.
 const port = process.env.PORT || 3000;

@@ -1,4 +1,5 @@
 const { Transaction } = require("../models/transactions.js");
+const { categoryExised, getBudgetByCategory  } = require("../Services/budgetServices.js");
 
 /**
  * @desc adding incomes
@@ -40,6 +41,19 @@ const addExpense = async (request, response) => {
     });
   }
   try {
+    // Go to the budget collection and get [Amount limit] and compare it with the amount
+    // 1 - if [amount] > [limitAmount] stop the operation & show alert message.
+    // 2 - if [amount] <= [limitAmount] continue the process.
+    const [budget] = await getBudgetByCategory(body.categorie);
+    console.log(budget);
+    
+    if (budget) {
+      if (body.amount > budget.limitAmount) {
+        response.status(401).json({
+          message: `You have valoute the limit amount of this categorie : ${budget.categorie.name}`,
+        });
+      }
+    }
     const transaction = await Transaction.create(body);
     return response.status(200).json({
       data: transaction,
@@ -59,7 +73,7 @@ const addExpense = async (request, response) => {
  */
 const pagination = async (request, response) => {
   console.log(request.query.page);
-  
+
   const page = parseInt(request.query.page) || 1;
   // const limit = parseInt(req.query.limit) || 4;
   const limit = 2;

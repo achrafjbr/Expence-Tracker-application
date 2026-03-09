@@ -3,7 +3,7 @@ const budgetRoute = express.Router();
 
 const { addBudgetForCategorie } = require("../controllers/budgetController");
 
-budgetRoute.post("/", addBudgetForCategorie);
+budgetRoute.post("/budgetCategory", addBudgetForCategorie);
 
 module.exports = {
   budgetRoute,
